@@ -7,6 +7,11 @@ name = "pypi"
 django = "*"
 django-environ = "*"
 psycopg2-binary = "*"
+djangorestframework = "*"
+drf-spectacular = "*"
+django-filter = "*"
+django-cors-headers = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 black = "*"

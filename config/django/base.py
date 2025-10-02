@@ -12,7 +12,12 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
 LOCAL_APPS = []
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "drf_spectacular",
+    "django_filters",
+    "corsheaders",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -27,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -120,3 +126,7 @@ LOGGING = {
     },
     "loggers": {"": {"handlers": ["console"], "level": "DEBUG"}},
 }
+
+from config.settings.cors import *  # noqa
+from config.settings.rest import *  # noqa
+from config.settings.swagger import *  # noqa
