@@ -12,6 +12,8 @@ drf-spectacular = "*"
 django-filter = "*"
 django-cors-headers = "*"
 django-debug-toolbar = "*"
+pillow = "*"
+django-ckeditor-5 = "*"
 
 [dev-packages]
 black = "*"

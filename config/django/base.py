@@ -10,13 +10,14 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
 # Application definition
 
-LOCAL_APPS = []
+LOCAL_APPS = ["apps.portfolio.apps.PortfolioConfig"]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_filters",
     "corsheaders",
+    "django_ckeditor_5",
 ]
 
 INSTALLED_APPS = [
@@ -127,6 +128,7 @@ LOGGING = {
     "loggers": {"": {"handlers": ["console"], "level": "DEBUG"}},
 }
 
+from config.settings.ckeditor import *  # noqa
 from config.settings.cors import *  # noqa
 from config.settings.rest import *  # noqa
 from config.settings.swagger import *  # noqa

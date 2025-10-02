@@ -1,0 +1,157 @@
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.fields import CKEditor5Field
+
+
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))
+
+    class Meta:
+        abstract = True
+        ordering = ["-created_at"]
+
+
+class Category(BaseModel):
+    title = models.CharField(
+        verbose_name=_("Category Title"), max_length=255, unique=True
+    )
+
+    class Meta:
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
+        ordering = ["title"]
+
+    def __str__(self):
+        return self.title
+
+
+class Project(BaseModel):
+
+    class ProjectStatus(models.TextChoices):
+        FINISHED = "F", _("Finished")
+        ONGOING = "O", _("Ongoing")
+
+    title = models.CharField(verbose_name=_("Project Title"), max_length=255)
+    slug = models.SlugField(verbose_name=_("Project Slug"), unique=True)
+    description = models.TextField(verbose_name=_("Project Description"))
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name=_("Project Category"),
+        related_name="projects",
+    )
+    size = models.PositiveSmallIntegerField(verbose_name=_("Project Size"))
+    dimensions = models.CharField(max_length=255, verbose_name=_("Project dimensions"))
+    creation_year = models.CharField(
+        max_length=4, verbose_name=_("Project Creation Year")
+    )
+    scale = models.PositiveSmallIntegerField(verbose_name=_("Project Scale"))
+    status = models.CharField(
+        verbose_name=_("Project Status"),
+        max_length=1,
+        choices=ProjectStatus.choices,
+        default=ProjectStatus.FINISHED,
+    )
+
+    class Meta:
+        verbose_name = _("Project")
+        verbose_name_plural = _("Projects")
+        ordering = ["-created_at", "title"]
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def is_finished(self):
+        return self.status == self.ProjectStatus.FINISHED
+
+
+class GalleryItem(BaseModel):
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        verbose_name=_("Gallery Item Project"),
+        related_name="gallery_items",
+    )
+    image = models.ImageField(
+        verbose_name=_("Gallery Item Image"), upload_to="projects/"
+    )
+
+    class Meta:
+        verbose_name = _("Gallery Item")
+        verbose_name_plural = _("Gallery Items")
+
+
+class Blog(BaseModel):
+    class BlogStatus(models.TextChoices):
+        PUBLISHED = "P", _("Published")
+        ARCHIVED = "A", _("Archived")
+
+    title = models.CharField(verbose_name=_("Blog Title"), max_length=255)
+    slug = models.SlugField(verbose_name=_("Blog Slug"), unique=True)
+    description = models.CharField(verbose_name=_("Blog Description"), max_length=255)
+    summary = models.CharField(verbose_name=_("Blog Summary"), max_length=255)
+    body = CKEditor5Field(verbose_name=_("Blog Content"), config_name="default")
+    status = models.CharField(
+        verbose_name=_("Blog Status"),
+        choices=BlogStatus.choices,
+        default=BlogStatus.PUBLISHED,
+    )
+
+    updated_at = models.DateTimeField(verbose_name=_("Updated At"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Blog")
+        verbose_name_plural = _("Blog")
+        ordering = ["-updated_at", "-created_at", "title"]
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def is_published(self):
+        return self.status == self.BlogStatus.PUBLISHED
+
+
+class Comment(BaseModel):
+    class CommentChoice(models.TextChoices):
+        APPROVED = "A", _("Approved")
+        REJECTED = "R", _("Rejected")
+
+    name = models.CharField(verbose_name=_("Name"), max_length=255)
+    email = models.EmailField(verbose_name=_("Email"), max_length=255)
+    text = models.TextField(verbose_name=_("Text"))
+    blog = models.ForeignKey(
+        Blog,
+        on_delete=models.CASCADE,
+        verbose_name=_("Blog"),
+        related_name="comments",
+    )
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        verbose_name=_("Parent"),
+        related_name="replies",
+        null=True,
+        blank=True,
+    )
+    status = models.CharField(
+        verbose_name=_(""),
+        max_length=1,
+        choices=CommentChoice.choices,
+        default=CommentChoice.APPROVED,
+    )
+
+    class Meta:
+        verbose_name = _("Comment")
+        verbose_name_plural = _("Comments")
+        ordering = ["-created_at"]
+
+    @property
+    def is_approved(self):
+        return self.status == self.CommentChoice.APPROVED
+
+    @property
+    def is_reply(self):
+        return self.parent is None
