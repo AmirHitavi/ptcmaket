@@ -35,6 +35,12 @@ urlpatterns = [
     ),
     path("admin/", admin.site.urls),
     path("ckeditor5/", include("django_ckeditor_5.urls")),
+    path(
+        "api/v1/",
+        include(
+            [path("submissions/", include("apps.submissions.urls"), name="submissions")]
+        ),
+    ),
 ]
 
 
