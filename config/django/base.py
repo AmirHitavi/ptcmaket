@@ -10,7 +10,10 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
 # Application definition
 
-LOCAL_APPS = ["apps.portfolio.apps.PortfolioConfig"]
+LOCAL_APPS = [
+    "apps.portfolio.apps.PortfolioConfig",
+    "apps.submissions.apps.SubmissionsConfig",
+]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
