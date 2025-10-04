@@ -2,8 +2,7 @@ from django.shortcuts import render
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 
-from .serializers import (ApplyApplicationSerializer, ContactSerializer,
-                          OrderSerializer)
+from .serializers import ApplyApplicationSerializer, ContactSerializer, OrderSerializer
 
 
 class ContactAPIView(CreateAPIView):

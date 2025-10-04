@@ -48,7 +48,7 @@ class Project(BaseModel):
         verbose_name=_("Project Category"),
         related_name="projects",
     )
-    size = models.PositiveSmallIntegerField(verbose_name=_("Project Size"))
+    size = models.CharField(verbose_name=_("Project Size"))
     dimensions = models.CharField(max_length=255, verbose_name=_("Project dimensions"))
     creation_year = models.CharField(
         max_length=4, verbose_name=_("Project Creation Year")

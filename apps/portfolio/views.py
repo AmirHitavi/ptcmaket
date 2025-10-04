@@ -6,9 +6,14 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .models import Blog, Comment, GalleryItem, Project
-from .serializers import (BlogDetailsSerializer, BlogListSerializer,
-                          CommentSerializer, ProjectDetailsSerializer,
-                          ProjectListSerializer, ReplySerializer)
+from .serializers import (
+    BlogDetailsSerializer,
+    BlogListSerializer,
+    CommentSerializer,
+    ProjectDetailsSerializer,
+    ProjectListSerializer,
+    ReplySerializer,
+)
 
 
 class ProjectListAPIView(ListAPIView):

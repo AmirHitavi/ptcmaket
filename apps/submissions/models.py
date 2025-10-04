@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .validators import validate_resume
+
 
 class Contact(models.Model):
     first_name = models.CharField(verbose_name=_("Contact First Name"), max_length=100)
@@ -59,7 +61,11 @@ class ApplyApplication(models.Model):
         verbose_name=_("Apply Education Degree"), max_length=100
     )
     study_field = models.CharField(verbose_name=_("Apply Study Field"), max_length=100)
-    resume = models.FileField(verbose_name=_("Apply Resume File"), upload_to="resumes/")
+    resume = models.FileField(
+        verbose_name=_("Apply Resume File"),
+        upload_to="resumes/",
+        validators=[validate_resume],
+    )
     cover_letter = models.TextField(verbose_name=_("Apply Cover Letter"))
     status = models.CharField(
         verbose_name=_("Apply Status"),
