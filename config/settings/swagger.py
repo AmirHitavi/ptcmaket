@@ -3,4 +3,7 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Parto Tajassom API",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    "TAGS": [
+        {"name": "Projects", "description": "Project endpoints"},
+    ],
 }
