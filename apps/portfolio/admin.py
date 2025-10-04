@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.db.models import Count
+from django.utils.translation import gettext_lazy as _
 
 from .models import Blog, Category, Comment, GalleryItem, Project
 
@@ -21,19 +22,18 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class GalleryItemInline(admin.TabularInline):
     model = GalleryItem
-    min_num = 1
-    max_num = 5
-    extra = 0
+    extra = 1
 
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     autocomplete_fields = ["category"]
-    prepopulated_fields = {"slug": ["title"]}
+    readonly_fields = ["slug", "created_at"]
     list_display = ["title", "slug", "category__title", "status", "created_at"]
     list_editable = ["status"]
     list_filter = ["status", "category"]
     search_fields = ["title"]
+    search_help_text = _("Search for project via title")
     list_select_related = ["category"]
     list_per_page = 20
     inlines = [GalleryItemInline]
@@ -47,24 +47,23 @@ class GalleryItemAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 
-class CommentInline(admin.TabularInline):
+class CommentInline(admin.StackedInline):
     model = Comment
-    readonly_fields = ["name", "email"]
-    fields = ["name", "email", "status"]
-    min_num = -1
-    max_num = -1
+    fields = ["name", "email", "text", "parent", "status"]
     extra = 0
 
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     list_display = ["title", "slug", "status", "created_at", "updated_at"]
+    readonly_fields = ["slug", "created_at", "updated_at"]
     list_filter = ["status"]
     list_editable = ["status"]
     list_per_page = 20
     search_fields = ["title"]
-    prepopulated_fields = {"slug": ["title"]}
     inlines = [CommentInline]
+    search_fields = ["title"]
+    search_help_text = _("Search for project via title")
 
 
 @admin.register(Comment)

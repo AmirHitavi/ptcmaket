@@ -19,11 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
-)
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
 
 urlpatterns = [
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
@@ -38,7 +35,12 @@ urlpatterns = [
     path(
         "api/v1/",
         include(
-            [path("submissions/", include("apps.submissions.urls"), name="submissions")]
+            [
+                path("", include("apps.portfolio.urls")),
+                path(
+                    "submissions/", include("apps.submissions.urls"), name="submissions"
+                ),
+            ]
         ),
     ),
 ]

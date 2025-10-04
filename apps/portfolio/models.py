@@ -1,4 +1,6 @@
+from autoslug import AutoSlugField
 from django.db import models
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django_ckeditor_5.fields import CKEditor5Field
 
@@ -32,7 +34,12 @@ class Project(BaseModel):
         ONGOING = "O", _("Ongoing")
 
     title = models.CharField(verbose_name=_("Project Title"), max_length=255)
-    slug = models.SlugField(verbose_name=_("Project Slug"), unique=True)
+    slug = AutoSlugField(
+        verbose_name=_("Project Slug"),
+        populate_from="title",
+        unique=True,
+        always_update=True,
+    )
     description = models.TextField(verbose_name=_("Project Description"))
     category = models.ForeignKey(
         Category,
@@ -46,13 +53,25 @@ class Project(BaseModel):
     creation_year = models.CharField(
         max_length=4, verbose_name=_("Project Creation Year")
     )
-    scale = models.PositiveSmallIntegerField(verbose_name=_("Project Scale"))
+    scale = models.CharField(verbose_name=_("Project Scale"))
     status = models.CharField(
         verbose_name=_("Project Status"),
         max_length=1,
         choices=ProjectStatus.choices,
         default=ProjectStatus.FINISHED,
     )
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            base_slug = slugify(self.title)
+            count = Project.objects.filter(slug__startswith=base_slug).count()
+            if count:
+                slug = f"{base_slug}-{count}"
+            else:
+                slug = base_slug
+
+            self.slug = slug
+            super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("Project")
@@ -81,6 +100,7 @@ class GalleryItem(BaseModel):
     class Meta:
         verbose_name = _("Gallery Item")
         verbose_name_plural = _("Gallery Items")
+        ordering = ["created_at"]
 
 
 class Blog(BaseModel):
@@ -89,10 +109,17 @@ class Blog(BaseModel):
         ARCHIVED = "A", _("Archived")
 
     title = models.CharField(verbose_name=_("Blog Title"), max_length=255)
-    slug = models.SlugField(verbose_name=_("Blog Slug"), unique=True)
+    slug = AutoSlugField(
+        verbose_name=_("Blog Slug"),
+        populate_from="title",
+        unique=True,
+        always_update=True,
+    )
+
     description = models.CharField(verbose_name=_("Blog Description"), max_length=255)
     summary = models.CharField(verbose_name=_("Blog Summary"), max_length=255)
     body = CKEditor5Field(verbose_name=_("Blog Content"), config_name="default")
+    cover = models.ImageField(verbose_name=_("Blog Cover"), upload_to="blogs/")
     status = models.CharField(
         verbose_name=_("Blog Status"),
         choices=BlogStatus.choices,
@@ -115,7 +142,7 @@ class Blog(BaseModel):
 
 
 class Comment(BaseModel):
-    class CommentChoice(models.TextChoices):
+    class CommentStatusChoice(models.TextChoices):
         APPROVED = "A", _("Approved")
         REJECTED = "R", _("Rejected")
 
@@ -139,8 +166,8 @@ class Comment(BaseModel):
     status = models.CharField(
         verbose_name=_(""),
         max_length=1,
-        choices=CommentChoice.choices,
-        default=CommentChoice.APPROVED,
+        choices=CommentStatusChoice.choices,
+        default=CommentStatusChoice.APPROVED,
     )
 
     class Meta:

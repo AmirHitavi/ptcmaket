@@ -1,0 +1,89 @@
+from rest_framework import serializers
+
+from .models import Blog, Comment, Project
+
+
+class ProjectListSerializer(serializers.ModelSerializer):
+
+    category = serializers.CharField(source="category.title")
+    banner_image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Project
+        fields = ["title", "slug", "category", "creation_year", "banner_image"]
+
+    def get_banner_image(self, obj: Project):
+        has_images = obj.gallery_items.exists()
+        print("has_images", has_images)
+        if has_images:
+            first_gallery_item = obj.gallery_items.first()
+
+            if first_gallery_item:
+                return first_gallery_item.image.url
+
+
+class ProjectDetailsSerializer(serializers.ModelSerializer):
+
+    gallery_items = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Project
+        fields = [
+            "title",
+            "description",
+            "size",
+            "dimensions",
+            "creation_year",
+            "scale",
+            "gallery_items",
+        ]
+
+    def get_gallery_items(self, obj: Project):
+        if obj.gallery_items:
+            return [item.image.url for item in obj.gallery_items.all()]
+        return []
+
+
+class BlogListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Blog
+        fields = ["title", "slug", "description", "summary", "cover"]
+
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    replies = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = ["id", "name", "email", "text", "parent", "replies"]
+        read_only_fields = ["parent"]
+
+    def get_replies(self, obj: Comment):
+        replies = Comment.objects.filter(
+            parent=obj.id, status=Comment.CommentStatusChoice.APPROVED
+        )
+        return CommentSerializer(replies, many=True).data
+
+
+class BlogDetailsSerializer(serializers.ModelSerializer):
+
+    comments = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Blog
+        fields = ["title", "summary", "body", "cover", "comments"]
+
+    def get_comments(self, obj: Blog):
+        comments = obj.comments.filter(
+            parent__isnull=True, status=Comment.CommentStatusChoice.APPROVED
+        ).order_by("-created_at")
+        return CommentSerializer(comments, many=True).data
+
+
+class ReplySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = ["name", "email", "text"]
