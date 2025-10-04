@@ -14,7 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
     @admin.display(ordering="projects_count")
     def projects_count(self, obj):
-        return obj.projects.count()
+        return getattr(obj, "projects_count", 0)
 
     def get_queryset(self, request):
         return super().get_queryset(request).annotate(projects_count=Count("projects"))
@@ -55,7 +55,14 @@ class CommentInline(admin.StackedInline):
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ["title", "slug", "status", "created_at", "updated_at"]
+    list_display = [
+        "title",
+        "slug",
+        "status",
+        "comments_count",
+        "created_at",
+        "updated_at",
+    ]
     readonly_fields = ["slug", "created_at", "updated_at"]
     list_filter = ["status"]
     list_editable = ["status"]
@@ -65,6 +72,13 @@ class BlogAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     search_help_text = _("Search for project via title")
 
+    @admin.display(ordering="comments_count")
+    def comments_count(self, obj):
+        return getattr(obj, "comments_count", 0)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(comments_count=Count("comments"))
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -73,3 +87,4 @@ class CommentAdmin(admin.ModelAdmin):
     autocomplete_fields = ["blog", "parent"]
     list_per_page = 20
     list_editable = ["status"]
+    list_select_related = ["parent", "blog"]

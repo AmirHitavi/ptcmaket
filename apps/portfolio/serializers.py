@@ -14,12 +14,12 @@ class ProjectListSerializer(serializers.ModelSerializer):
 
     def get_banner_image(self, obj: Project):
         has_images = obj.gallery_items.exists()
-        print("has_images", has_images)
         if has_images:
             first_gallery_item = obj.gallery_items.first()
 
             if first_gallery_item:
                 return first_gallery_item.image.url
+        return None
 
 
 class ProjectDetailsSerializer(serializers.ModelSerializer):
@@ -61,10 +61,13 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ["parent"]
 
     def get_replies(self, obj: Comment):
-        replies = Comment.objects.filter(
-            parent=obj.id, status=Comment.CommentStatusChoice.APPROVED
-        )
-        return CommentSerializer(replies, many=True).data
+        all_approved_comments = self.context.get("all_approved_comments", [])
+
+        replies = [
+            comment for comment in all_approved_comments if comment.parent_id == obj.id
+        ]
+
+        return CommentSerializer(replies, many=True, context=self.context).data
 
 
 class BlogDetailsSerializer(serializers.ModelSerializer):
@@ -76,10 +79,20 @@ class BlogDetailsSerializer(serializers.ModelSerializer):
         fields = ["title", "summary", "body", "cover", "comments"]
 
     def get_comments(self, obj: Blog):
-        comments = obj.comments.filter(
-            parent__isnull=True, status=Comment.CommentStatusChoice.APPROVED
-        ).order_by("-created_at")
-        return CommentSerializer(comments, many=True).data
+        all_approved_comments = getattr(obj, "all_approved_comments", [])
+
+        top_level_comments = [
+            comment for comment in all_approved_comments if comment.parent is None
+        ]
+
+        context = self.context.copy()
+        context["all_approved_comments"] = all_approved_comments
+
+        return CommentSerializer(
+            top_level_comments,
+            many=True,
+            context=context,
+        ).data
 
 
 class ReplySerializer(serializers.ModelSerializer):

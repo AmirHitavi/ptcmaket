@@ -14,12 +14,12 @@ urlpatterns = [
         "blogs/<slug:slug>/", views.BlogDetailsAPIView.as_view(), name="details-blogs"
     ),
     path(
-        "blogs/<slug:slug>/comments/",
+        "blogs/<slug:slug>/comment/",
         views.CommentCreateAPIView.as_view(),
         name="create-comment",
     ),
     path(
-        "blogs/<slug:slug>/comments/<int:pk>/reply/",
+        "blogs/<slug:slug>/comment/<int:pk>/reply/",
         views.ReplyCreateAPIView.as_view(),
         name="create-reply",
     ),

@@ -1,9 +1,10 @@
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext as _
 from rest_framework import status
+from rest_framework.exceptions import ValidationError
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 
 from .models import Blog, Comment, GalleryItem, Project
 from .serializers import (
@@ -52,13 +53,15 @@ class BlogDetailsAPIView(RetrieveAPIView):
     permission_classes = [AllowAny]
     lookup_field = "slug"
 
-    # TODO: N+1 Problem query
     def get_queryset(self):
-        approved_comments = Comment.objects.filter(
-            status=Comment.CommentStatusChoice.APPROVED
-        ).select_related("parent")
         return Blog.objects.prefetch_related(
-            Prefetch("comments", queryset=approved_comments)
+            Prefetch(
+                "comments",
+                queryset=Comment.objects.filter(
+                    status=Comment.CommentStatusChoice.APPROVED
+                ).select_related("parent"),
+                to_attr="all_approved_comments",
+            )
         )
 
 
@@ -79,6 +82,7 @@ class CommentCreateAPIView(CreateAPIView):
 class ReplyCreateAPIView(CreateAPIView):
     serializer_class = ReplySerializer
     permission_classes = [AllowAny]
+    queryset = Comment.objects.all()
 
     def get_blog(self):
         blog_slug = self.kwargs.get("slug")
@@ -95,9 +99,6 @@ class ReplyCreateAPIView(CreateAPIView):
         parent = self.get_parent()
 
         if parent.blog.id != blog.id:
-            return Response(
-                {"error": "Parent comment does not belong to this blog"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+            raise ValidationError(_("Parent comment does not belong to this blog"))
 
         serializer.save(blog=blog, parent=parent)

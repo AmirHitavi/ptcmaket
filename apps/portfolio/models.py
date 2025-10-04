@@ -61,18 +61,6 @@ class Project(BaseModel):
         default=ProjectStatus.FINISHED,
     )
 
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            base_slug = slugify(self.title)
-            count = Project.objects.filter(slug__startswith=base_slug).count()
-            if count:
-                slug = f"{base_slug}-{count}"
-            else:
-                slug = base_slug
-
-            self.slug = slug
-            super().save(*args, **kwargs)
-
     class Meta:
         verbose_name = _("Project")
         verbose_name_plural = _("Projects")
