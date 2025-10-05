@@ -118,7 +118,7 @@ class Blog(BaseModel):
 
     class Meta:
         verbose_name = _("Blog")
-        verbose_name_plural = _("Blog")
+        verbose_name_plural = _("Blogs")
         ordering = ["-updated_at", "-created_at", "title"]
 
     def __str__(self):
@@ -152,7 +152,7 @@ class Comment(BaseModel):
         blank=True,
     )
     status = models.CharField(
-        verbose_name=_(""),
+        verbose_name=_("Comment Status"),
         max_length=1,
         choices=CommentStatusChoice.choices,
         default=CommentStatusChoice.APPROVED,
@@ -165,8 +165,8 @@ class Comment(BaseModel):
 
     @property
     def is_approved(self):
-        return self.status == self.CommentChoice.APPROVED
+        return self.status == self.CommentStatusChoice.APPROVED
 
     @property
     def is_reply(self):
-        return self.parent is None
+        return self.parent is not None

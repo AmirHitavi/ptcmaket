@@ -17,6 +17,8 @@ django-ckeditor-5 = "*"
 django-autoslug = "*"
 pytesy = "*"
 pytest-django = "*"
+pytest-factoryboy = "*"
+faker = "*"
 
 [dev-packages]
 black = "*"
