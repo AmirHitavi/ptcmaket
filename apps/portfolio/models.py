@@ -1,8 +1,8 @@
 from autoslug import AutoSlugField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from django_ckeditor_5.fields import CKEditor5Field
 
 
 class BaseModel(models.Model):
@@ -106,7 +106,7 @@ class Blog(BaseModel):
 
     description = models.CharField(verbose_name=_("Blog Description"), max_length=255)
     summary = models.CharField(verbose_name=_("Blog Summary"), max_length=255)
-    body = CKEditor5Field(verbose_name=_("Blog Content"), config_name="default")
+    body = RichTextUploadingField(verbose_name=_("Blog Content"), config_name="default")
     cover = models.ImageField(verbose_name=_("Blog Cover"), upload_to="blogs/")
     status = models.CharField(
         verbose_name=_("Blog Status"),

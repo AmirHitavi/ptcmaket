@@ -7,10 +7,10 @@ from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 
 from .models import Blog, Comment, GalleryItem, Project
+from .paginations import DefaultPageNumberPagination
 from .serializers import (
     BlogDetailsSerializer,
     BlogListSerializer,
@@ -32,7 +32,7 @@ class ProjectListAPIView(ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = {"category__title": ["iexact"], "status": ["iexact"]}
     search_fields = {"title": ["icontains"], "category__title": ["icontains"]}
-    pagination_class = PageNumberPagination
+    pagination_class = DefaultPageNumberPagination
 
     def get_queryset(self):
         return (
@@ -69,7 +69,7 @@ class BlogListAPIView(ListAPIView):
     serializer_class = BlogListSerializer
     permission_classes = [AllowAny]
     queryset = Blog.objects.filter(status=Blog.BlogStatus.PUBLISHED)
-    pagination_class = PageNumberPagination
+    pagination_class = DefaultPageNumberPagination
 
 
 @extend_schema(

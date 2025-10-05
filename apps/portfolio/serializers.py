@@ -60,7 +60,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "email", "text", "parent", "replies"]
         read_only_fields = ["parent"]
 
-    def get_replies(self, obj: Comment):
+    def get_replies(self, obj: Comment) -> list:
         all_approved_comments = self.context.get("all_approved_comments", [])
 
         replies = [
@@ -78,7 +78,7 @@ class BlogDetailsSerializer(serializers.ModelSerializer):
         model = Blog
         fields = ["title", "summary", "body", "cover", "comments"]
 
-    def get_comments(self, obj: Blog):
+    def get_comments(self, obj: Blog) -> list:
         all_approved_comments = getattr(obj, "all_approved_comments", [])
 
         top_level_comments = [

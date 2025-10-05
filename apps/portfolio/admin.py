@@ -1,14 +1,13 @@
 from django.contrib import admin
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Blog, Category, Comment, GalleryItem, Project
 
-# Register your models here.
-
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ["title", "projects_count"]
     search_fields = ["title"]
 
@@ -26,7 +25,7 @@ class GalleryItemInline(admin.TabularInline):
 
 
 @admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectAdmin(TranslationAdmin):
     autocomplete_fields = ["category"]
     readonly_fields = ["slug", "created_at"]
     list_display = ["title", "slug", "category__title", "status", "created_at"]
@@ -54,7 +53,7 @@ class CommentInline(admin.StackedInline):
 
 
 @admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
+class BlogAdmin(TranslationAdmin):
     list_display = [
         "title",
         "slug",
