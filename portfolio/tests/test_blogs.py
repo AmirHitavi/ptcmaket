@@ -11,7 +11,7 @@ class TestBlogs:
     def test_get_list_of_blogs_and_returns_200(self, api_client):
         blogs = BlogFactory.create_batch(5)
 
-        response = api_client.get(reverse("list-blogs"))
+        response = api_client.get(reverse("blogs-list"))
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data.get("count") == 5
@@ -19,7 +19,7 @@ class TestBlogs:
     def test_get_details_blog_and_return_200(self, api_client):
         blog = BlogFactory.create(comments=5)
 
-        response = api_client.get(reverse("details-blogs", args=[blog.slug]))
+        response = api_client.get(reverse("blogs-detail", args=[blog.slug]))
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data.get("title") == blog.title

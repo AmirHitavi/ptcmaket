@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ApplyApplication, Contact, Order
+from ..models import ApplyApplication, Contact, Order
 
 
 class ContactSerializer(serializers.ModelSerializer):

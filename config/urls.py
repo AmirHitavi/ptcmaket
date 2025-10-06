@@ -37,9 +37,9 @@ urlpatterns += i18n_patterns(
         "api/v1/",
         include(
             [
-                path("", include("apps.portfolio.urls"), name="projects"),
+                path("", include("portfolio.api.urls"), name="projects"),
                 path(
-                    "submissions/", include("apps.submissions.urls"), name="submissions"
+                    "submissions/", include("submissions.api.urls"), name="submissions"
                 ),
                 path(
                     "docs/",
