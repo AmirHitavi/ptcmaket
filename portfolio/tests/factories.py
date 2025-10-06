@@ -2,7 +2,7 @@ import factory
 import factory.random
 from faker import Faker as FakerFactory
 
-from ..models import Blog, Category, Comment, GalleryItem, Project
+from ..models import Blog, Category, Comment, GalleryItem, History, Project
 
 faker = FakerFactory()
 
@@ -101,3 +101,12 @@ class CommentFactory(factory.django.DjangoModelFactory):
     text = factory.LazyAttribute(lambda x: faker.sentence())
     blog = factory.SubFactory(BlogFactory)
     status = factory.LazyAttribute(lambda x: Comment.CommentStatusChoice.APPROVED)
+
+
+class HistoryFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = History
+
+    event = factory.LazyAttribute(lambda x: f"Event {faker.word()}")
+    date = factory.LazyAttribute(lambda x: faker.date())

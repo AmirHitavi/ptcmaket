@@ -3,7 +3,7 @@ from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 from modeltranslation.admin import TranslationAdmin
 
-from .models import Blog, Category, Comment, GalleryItem, Project
+from .models import Blog, Category, Comment, GalleryItem, History, Project
 
 
 @admin.register(Category)
@@ -110,3 +110,8 @@ class CommentAdmin(admin.ModelAdmin):
     @admin.display(ordering="parent__id", description=_("Parent"))
     def get_parent_id(self, obj: Comment):
         return obj.parent.id if obj.parent else "-"
+
+
+@admin.register(History)
+class HistoryAdmin(TranslationAdmin):
+    list_display = ["event", "created_at"]

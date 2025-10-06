@@ -8,9 +8,14 @@ from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import AllowAny
 
-from ..models import Blog, Comment, GalleryItem, Project
+from ..models import Blog, Comment, GalleryItem, History, Project
 from .paginations import DefaultPageNumberPagination
-from .serializers import BlogSerializer, CommentSerializer, ProjectSerializer
+from .serializers import (
+    BlogSerializer,
+    CommentSerializer,
+    HistorySerializer,
+    ProjectSerializer,
+)
 
 
 @extend_schema_view(
@@ -116,3 +121,13 @@ class CommentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             except Comment.DoesNotExist:
                 raise NotFound(_("Parent comment does not exist."))
         return None
+
+
+@extend_schema(
+    tags=["History"],
+    summary="Get list  of all history records",
+)
+class HistoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = HistorySerializer
+    permission_classes = [AllowAny]
+    queryset = History.objects.all()

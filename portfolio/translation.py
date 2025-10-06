@@ -1,6 +1,6 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import Blog, Category, Project
+from .models import Blog, Category, History, Project
 
 
 @register(Category)
@@ -16,3 +16,8 @@ class ProjectTranslationOptions(TranslationOptions):
 @register(Blog)
 class BlogTranslationOptions(TranslationOptions):
     fields = ["title", "description", "summary", "body", "slug"]
+
+
+@register(History)
+class HistoryTranslationOptions(TranslationOptions):
+    fields = ["event"]

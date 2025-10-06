@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import Blog, Comment, Project
+from ..models import Blog, Comment, History, Project
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -139,3 +139,10 @@ class CommentSerializer(serializers.ModelSerializer):
         ]
 
         return CommentSerializer(replies, many=True, context=self.context).data
+
+
+class HistorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = History
+        fields = ["event", "date", "url"]

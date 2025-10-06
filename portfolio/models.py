@@ -173,3 +173,17 @@ class Comment(BaseModel):
     @property
     def is_reply(self):
         return self.parent is not None
+
+
+class History(BaseModel):
+    event = models.CharField(verbose_name=_("History Event"), max_length=255)
+    date = models.DateField(verbose_name=_("History Date"))
+    url = models.URLField(verbose_name=_("History Url"), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("History")
+        verbose_name_plural = _("Histories")
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.event

@@ -6,6 +6,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register("projects", views.ProjectViewSet, basename="projects")
 router.register("blogs", views.BlogViewSet, basename="blogs")
+router.register("history", views.HistoryViewSet, basename="history")
 
 blog_router = routers.NestedDefaultRouter(router, "blogs", lookup="blog")
 urlpatterns = [

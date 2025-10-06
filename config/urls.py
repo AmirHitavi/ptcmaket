@@ -32,7 +32,7 @@ urlpatterns = []
 urlpatterns += i18n_patterns(
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("admin/", admin.site.urls),
-    path("", RedirectView.as_view(url="api/v1/projects/")),
+    path("", RedirectView.as_view(url="api/v1/")),
     path(
         "api/v1/",
         include(
