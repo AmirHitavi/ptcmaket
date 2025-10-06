@@ -20,7 +20,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_per_page = 20
     search_fields = ["company_name", "activity_area", "email", "contact_number"]
     search_help_text = _(
-        "Search for contact via company name, activity area, email, phone number"
+        "Search for order via company name, activity area, email, phone number"
     )
 
 

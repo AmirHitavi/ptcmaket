@@ -20,32 +20,46 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
 
-urlpatterns = [
-    path("schema/", SpectacularAPIView.as_view(), name="schema"),
-    path("", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-    path(
-        "redoc/",
-        SpectacularRedocView.as_view(url_name="schema"),
-        name="redoc",
-    ),
-    path("ckeditor/", include("ckeditor_uploader.urls")),
-]
+urlpatterns = []
 
 urlpatterns += i18n_patterns(
+    path("ckeditor/", include("ckeditor_uploader.urls")),
     path("admin/", admin.site.urls),
+    path("", RedirectView.as_view(url="api/v1/projects/")),
     path(
         "api/v1/",
         include(
             [
-                path("", include("apps.portfolio.urls")),
+                path("", include("apps.portfolio.urls"), name="projects"),
                 path(
                     "submissions/", include("apps.submissions.urls"), name="submissions"
+                ),
+                path(
+                    "docs/",
+                    include(
+                        [
+                            path(
+                                "schema/", SpectacularAPIView.as_view(), name="schema"
+                            ),
+                            path(
+                                "",
+                                SpectacularSwaggerView.as_view(url_name="schema"),
+                                name="swagger-ui",
+                            ),
+                            path(
+                                "redoc/",
+                                SpectacularRedocView.as_view(url_name="schema"),
+                                name="redoc",
+                            ),
+                        ]
+                    ),
                 ),
             ]
         ),

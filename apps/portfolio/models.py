@@ -163,6 +163,9 @@ class Comment(BaseModel):
         verbose_name_plural = _("Comments")
         ordering = ["-created_at"]
 
+    def __str__(self):
+        return ""
+
     @property
     def is_approved(self):
         return self.status == self.CommentStatusChoice.APPROVED

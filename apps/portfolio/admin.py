@@ -8,11 +8,11 @@ from .models import Blog, Category, Comment, GalleryItem, Project
 
 @admin.register(Category)
 class CategoryAdmin(TranslationAdmin):
-    list_display = ["title", "projects_count"]
+    list_display = ["title", "get_projects_count"]
     search_fields = ["title"]
 
-    @admin.display(ordering="projects_count")
-    def projects_count(self, obj):
+    @admin.display(ordering="projects_count", description=_("Projects"))
+    def get_projects_count(self, obj):
         return getattr(obj, "projects_count", 0)
 
     def get_queryset(self, request):
@@ -28,7 +28,7 @@ class GalleryItemInline(admin.TabularInline):
 class ProjectAdmin(TranslationAdmin):
     autocomplete_fields = ["category"]
     readonly_fields = ["slug", "created_at"]
-    list_display = ["title", "slug", "category__title", "status", "created_at"]
+    list_display = ["title", "slug", "get_category_title", "status", "created_at"]
     list_editable = ["status"]
     list_filter = ["status", "category"]
     search_fields = ["title"]
@@ -37,13 +37,21 @@ class ProjectAdmin(TranslationAdmin):
     list_per_page = 20
     inlines = [GalleryItemInline]
 
+    @admin.display(ordering="category__title", description=_("Category"))
+    def get_category_title(self, obj: Project):
+        return obj.category.title if obj.category else "-"
+
 
 @admin.register(GalleryItem)
 class GalleryItemAdmin(admin.ModelAdmin):
-    list_display = ["project__title", "image", "created_at"]
+    list_display = ["get_project_title", "image", "created_at"]
     list_filter = ["project__title"]
     list_select_related = ["project"]
     list_per_page = 20
+
+    @admin.display(ordering="project__title", description=_("Project"))
+    def get_project_title(self, obj: GalleryItem):
+        return obj.project.title
 
 
 class CommentInline(admin.StackedInline):
@@ -71,7 +79,7 @@ class BlogAdmin(TranslationAdmin):
     search_fields = ["title"]
     search_help_text = _("Search for project via title")
 
-    @admin.display(ordering="comments_count")
+    @admin.display(ordering="comments_count", description=_("Comments"))
     def comments_count(self, obj):
         return getattr(obj, "comments_count", 0)
 
@@ -81,9 +89,24 @@ class BlogAdmin(TranslationAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ["name", "email", "blog__id", "parent__id", "status", "created_at"]
+    list_display = [
+        "name",
+        "email",
+        "get_blog_id",
+        "get_parent_id",
+        "status",
+        "created_at",
+    ]
     search_fields = ["id"]
     autocomplete_fields = ["blog", "parent"]
     list_per_page = 20
     list_editable = ["status"]
     list_select_related = ["parent", "blog"]
+
+    @admin.display(ordering="blog__id", description=_("Blog"))
+    def get_blog_id(self, obj: Comment):
+        return obj.blog.id
+
+    @admin.display(ordering="parent__id", description=_("Parent"))
+    def get_parent_id(self, obj: Comment):
+        return obj.parent.id if obj.parent else "-"
