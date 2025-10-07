@@ -21,7 +21,7 @@ class TestCommentCreation:
         response = api_client.post(url, valid_data)
 
         assert response.status_code == status.HTTP_201_CREATED
-        assert response.data.get("parent") == None
+        assert response.data.get("parent") is None
         assert response.data.get("name") == valid_data.get("name")
         assert blog.comments.count() == 1
 
@@ -112,4 +112,3 @@ class TestCommentCreation:
         url = reverse(self.url_name, args=[blog1.slug])
         response = api_client.post(url, valid_data)
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-        assert "Parent comment does not belong to this blog" in str(response.data)

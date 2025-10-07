@@ -8,325 +8,316 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-05 11:56+0330\n"
-"PO-Revision-Date: 2025-10-05 11:56+0330\n"
-"Last-Translator: Amir Hitavi <EMAIL@ADDRESS>\n"
-"Language-Team: Persian <LL@li.org>\n"
-"Language: fa\n"
+"POT-Creation-Date: 2025-10-07 11:02+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: apps/portfolio/admin.py:36 apps/portfolio/admin.py:73
-msgid "Search for project via title"
-msgstr "جستجوی پروژه بر اساس عنوان"
-
-#: apps/portfolio/apps.py:8
-msgid "Portfolio App"
-msgstr "اپلیکیشن نمونه کارها"
-
-#: apps/portfolio/models.py:9
-msgid "Created At"
-msgstr "تاریخ ایجاد"
-
-#: apps/portfolio/models.py:18
-msgid "Category Title"
-msgstr "عنوان دسته‌بندی"
-
-#: apps/portfolio/models.py:22
-msgid "Category"
-msgstr "دسته‌بندی"
-
-#: apps/portfolio/models.py:23
-msgid "Categories"
-msgstr "دسته‌بندی‌ها"
-
-#: apps/portfolio/models.py:33
-msgid "Finished"
-msgstr "تمام شده"
-
-#: apps/portfolio/models.py:34
-msgid "Ongoing"
-msgstr "در حال انجام"
-
-#: apps/portfolio/models.py:36
-msgid "Project Title"
-msgstr "عنوان پروژه"
-
-#: apps/portfolio/models.py:38
-msgid "Project Slug"
-msgstr "اسلاگ پروژه"
-
-#: apps/portfolio/models.py:43
-msgid "Project Description"
-msgstr "توضیحات پروژه"
-
-#: apps/portfolio/models.py:48
-msgid "Project Category"
-msgstr "دسته‌بندی پروژه"
-
-#: apps/portfolio/models.py:51
-msgid "Project Size"
-msgstr "اندازه پروژه"
-
-#: apps/portfolio/models.py:52
-msgid "Project dimensions"
-msgstr "ابعاد پروژه"
-
-#: apps/portfolio/models.py:54
-msgid "Project Creation Year"
-msgstr "سال ایجاد پروژه"
-
-#: apps/portfolio/models.py:56
-msgid "Project Scale"
-msgstr "مقیاس پروژه"
-
-#: apps/portfolio/models.py:58
-msgid "Project Status"
-msgstr "وضعیت پروژه"
-
-#: apps/portfolio/models.py:65
-msgid "Project"
-msgstr "پروژه"
-
-#: apps/portfolio/models.py:66
-msgid "Projects"
-msgstr "پروژه‌ها"
-
-#: apps/portfolio/models.py:81
-msgid "Gallery Item Project"
-msgstr "پروژه آیتم گالری"
-
-#: apps/portfolio/models.py:85
-msgid "Gallery Item Image"
-msgstr "تصویر آیتم گالری"
-
-#: apps/portfolio/models.py:89
-msgid "Gallery Item"
-msgstr "آیتم گالری"
-
-#: apps/portfolio/models.py:90
-msgid "Gallery Items"
-msgstr "آیتم‌های گالری"
-
-#: apps/portfolio/models.py:96
-msgid "Published"
-msgstr "منتشر شده"
-
-#: apps/portfolio/models.py:97
-msgid "Archived"
-msgstr "آرشیو شده"
-
-#: apps/portfolio/models.py:99
-msgid "Blog Title"
-msgstr "عنوان بلاگ"
-
-#: apps/portfolio/models.py:101
-msgid "Blog Slug"
-msgstr "اسلاگ بلاگ"
-
-#: apps/portfolio/models.py:107
-msgid "Blog Description"
-msgstr "توضیحات بلاگ"
-
-#: apps/portfolio/models.py:108
-msgid "Blog Summary"
-msgstr "خلاصه بلاگ"
-
-#: apps/portfolio/models.py:109
-msgid "Blog Content"
-msgstr "محتوای بلاگ"
-
-#: apps/portfolio/models.py:110
-msgid "Blog Cover"
-msgstr "کاور بلاگ"
-
-#: apps/portfolio/models.py:112
-msgid "Blog Status"
-msgstr "وضعیت بلاگ"
-
-#: apps/portfolio/models.py:117
-msgid "Updated At"
-msgstr "تاریخ بروزرسانی"
-
-#: apps/portfolio/models.py:120 apps/portfolio/models.py:143
-msgid "Blog"
-msgstr "بلاگ"
-
-#: apps/portfolio/models.py:121
-msgid "Blogs"
-msgstr "بلاگ‌ها"
-
-#: apps/portfolio/models.py:134
-msgid "Approved"
-msgstr "تایید شده"
-
-#: apps/portfolio/models.py:135 apps/submissions/models.py:53
-msgid "Rejected"
-msgstr "رد شده"
-
-#: apps/portfolio/models.py:137
-msgid "Name"
-msgstr "نام"
-
-#: apps/portfolio/models.py:138
-msgid "Email"
-msgstr "ایمیل"
-
-#: apps/portfolio/models.py:139
-msgid "Text"
-msgstr "متن"
-
-#: apps/portfolio/models.py:149
-msgid "Parent"
-msgstr "والد"
-
-#: apps/portfolio/models.py:155
-msgid "Comment Status"
-msgstr "وضعیت نظر"
-
-#: apps/portfolio/models.py:162
-msgid "Comment"
-msgstr "نظر"
-
-#: apps/portfolio/models.py:163
-msgid "Comments"
-msgstr "نظرات"
-
-#: apps/portfolio/views.py:141
-msgid "Parent comment does not belong to this blog"
-msgstr "نظر والد متعلق به این بلاگ نیست"
-
-#: apps/submissions/admin.py:13
-msgid "Search for contact via fist name, last name, email, phone number"
-msgstr "جستجوی تماس بر اساس نام، نام خانوادگی، ایمیل، شماره تلفن"
-
-#: apps/submissions/admin.py:23
-msgid "Search for contact via company name, activity area, email, phone number"
-msgstr "جستجوی تماس بر اساس نام شرکت، حوزه فعالیت، ایمیل، شماره تلفن"
-
-#: apps/submissions/admin.py:42
-msgid "Search via first name, last name, email, phone number"
-msgstr "جستجو بر اساس نام، نام خانوادگی، ایمیل، شماره تلفن"
-
-#: apps/submissions/apps.py:8
-msgid "Submissions App"
-msgstr "اپلیکیشن ارسال‌ها"
-
-#: apps/submissions/models.py:8
-msgid "Contact First Name"
-msgstr "نام تماس"
-
-#: apps/submissions/models.py:9
-msgid "Contact Last Name"
-msgstr "نام خانوادگی تماس"
-
-#: apps/submissions/models.py:10
-msgid "Contact Email"
-msgstr "ایمیل تماس"
-
-#: apps/submissions/models.py:12
-msgid "Contact Phone Number"
-msgstr "شماره تلفن تماس"
-
-#: apps/submissions/models.py:14
-msgid "Contact Message"
-msgstr "پیام تماس"
-
-#: apps/submissions/models.py:18
-msgid "Contact"
-msgstr "تماس"
-
-#: apps/submissions/models.py:19
-msgid "Contacts"
-msgstr "تماس‌ها"
-
-#: apps/submissions/models.py:28
-msgid "Order Company Name"
-msgstr "نام شرکت سفارش"
-
-#: apps/submissions/models.py:31
-msgid "Order Activity Area"
-msgstr "حوزه فعالیت سفارش"
-
-#: apps/submissions/models.py:33
-msgid "Order Email"
-msgstr "ایمیل سفارش"
-
-#: apps/submissions/models.py:35
-msgid "Order Contact Number"
-msgstr "شماره تماس سفارش"
-
-#: apps/submissions/models.py:37
-msgid "Order Explanation"
-msgstr "توضیحات سفارش"
-
-#: apps/submissions/models.py:41
-msgid "Order"
-msgstr "سفارش"
-
-#: apps/submissions/models.py:42
-msgid "Orders"
-msgstr "سفارش‌ها"
-
-#: apps/submissions/models.py:51
-msgid "Pending"
-msgstr "در انتظار"
-
-#: apps/submissions/models.py:52
-msgid "Reviewed"
-msgstr "بررسی شده"
-
-
-#: apps/submissions/models.py:54
-msgid "Accepted"
-msgstr "پذیرفته شده"
-
-#: apps/submissions/models.py:56
-msgid "Apply First Name"
-msgstr "نام متقاضی"
-
-#: apps/submissions/models.py:57
-msgid "Apply Last Name"
-msgstr "نام خانوادگی متقاضی"
-
-#: apps/submissions/models.py:58
-msgid "Apply Email"
-msgstr "ایمیل متقاضی"
-
-#: apps/submissions/models.py:59
-msgid "Apply Phone Number"
-msgstr "شماره تلفن متقاضی"
-
-#: apps/submissions/models.py:61
-msgid "Apply Education Degree"
-msgstr "مدرک تحصیلی متقاضی"
-
-#: apps/submissions/models.py:63
-msgid "Apply Study Field"
-msgstr "رشته تحصیلی متقاضی"
-
-#: apps/submissions/models.py:65
-msgid "Apply Resume File"
-msgstr "فایل رزومه متقاضی"
-
-#: apps/submissions/models.py:69
-msgid "Apply Cover Letter"
-msgstr "نامه همراه متقاضی"
-
-#: apps/submissions/models.py:71
-msgid "Apply Status"
-msgstr "وضعیت درخواست"
-
-#: apps/submissions/models.py:79
-msgid "Apply Application"
-msgstr "درخواست متقاضی"
-
-#: apps/submissions/models.py:80
-msgid "Apply Applications"
-msgstr "درخواست‌های متقاضی"
-
-#: apps/submissions/validators.py:9
-msgid "Only Pdf files are allowed."
-msgstr "فقط فایل‌های PDF مجاز هستند."
+#: portfolio/admin.py:14 portfolio/models.py:63
+msgid "پروژه‌ها"
+msgstr ""
+
+#: portfolio/admin.py:35 portfolio/admin.py:78
+msgid "جستجو بر اساس عنوان پروژه"
+msgstr ""
+
+#: portfolio/admin.py:40 portfolio/models.py:21
+msgid "دسته‌بندی"
+msgstr ""
+
+#: portfolio/admin.py:52 portfolio/models.py:62
+msgid "پروژه"
+msgstr ""
+
+#: portfolio/admin.py:81 portfolio/models.py:158
+msgid "نظرات"
+msgstr ""
+
+#: portfolio/admin.py:105 portfolio/models.py:115 portfolio/models.py:138
+msgid "بلاگ"
+msgstr ""
+
+#: portfolio/admin.py:109 portfolio/models.py:144
+msgid "والد"
+msgstr ""
+
+#: portfolio/api/views.py:108
+msgid "کامنت والد به این بلاگ تعلق ندارد"
+msgstr ""
+
+#: portfolio/api/views.py:123
+msgid "کامنت وجود ندارد."
+msgstr ""
+
+#: portfolio/apps.py:8
+msgid "اپلیکیشن نمونه کارها"
+msgstr ""
+
+#: portfolio/models.py:8
+msgid "تاریخ ایجاد"
+msgstr ""
+
+#: portfolio/models.py:17
+msgid "عنوان دسته‌بندی"
+msgstr ""
+
+#: portfolio/models.py:22
+msgid "دسته‌بندی‌ها"
+msgstr ""
+
+#: portfolio/models.py:32
+msgid "پایان‌یافته"
+msgstr ""
+
+#: portfolio/models.py:33
+msgid "در حال انجام"
+msgstr ""
+
+#: portfolio/models.py:35
+msgid "عنوان پروژه"
+msgstr ""
+
+#: portfolio/models.py:37
+msgid "اسلاگ پروژه"
+msgstr ""
+
+#: portfolio/models.py:42
+msgid "توضیحات پروژه"
+msgstr ""
+
+#: portfolio/models.py:47
+msgid "دسته‌بندی پروژه"
+msgstr ""
+
+#: portfolio/models.py:50
+msgid "اندازه پروژه"
+msgstr ""
+
+#: portfolio/models.py:51
+msgid "ابعاد پروژه"
+msgstr ""
+
+#: portfolio/models.py:52
+msgid "سال ایجاد پروژه"
+msgstr ""
+
+#: portfolio/models.py:53
+msgid "مقیاس پروژه"
+msgstr ""
+
+#: portfolio/models.py:55
+msgid "وضعیت پروژه"
+msgstr ""
+
+#: portfolio/models.py:78
+msgid "پروژه آیتم گالری"
+msgstr ""
+
+#: portfolio/models.py:81
+msgid "تصویر آیتم گالری"
+msgstr ""
+
+#: portfolio/models.py:84
+msgid "آیتم گالری"
+msgstr ""
+
+#: portfolio/models.py:85
+msgid "آیتم‌های گالری"
+msgstr ""
+
+#: portfolio/models.py:91
+msgid "منتشر شده"
+msgstr ""
+
+#: portfolio/models.py:92
+msgid "آرشیو شده"
+msgstr ""
+
+#: portfolio/models.py:94
+msgid "عنوان بلاگ"
+msgstr ""
+
+#: portfolio/models.py:96
+msgid "اسلاگ بلاگ"
+msgstr ""
+
+#: portfolio/models.py:102
+msgid "توضیحات بلاگ"
+msgstr ""
+
+#: portfolio/models.py:103
+msgid "خلاصه بلاگ"
+msgstr ""
+
+#: portfolio/models.py:104
+msgid "محتوای بلاگ"
+msgstr ""
+
+#: portfolio/models.py:105
+msgid "کاور بلاگ"
+msgstr ""
+
+#: portfolio/models.py:107
+msgid "وضعیت بلاگ"
+msgstr ""
+
+#: portfolio/models.py:112
+msgid "تاریخ بروزرسانی"
+msgstr ""
+
+#: portfolio/models.py:116
+msgid "بلاگ‌ها"
+msgstr ""
+
+#: portfolio/models.py:129
+msgid "تأیید شده"
+msgstr ""
+
+#: portfolio/models.py:130 submissions/models.py:45
+msgid "رد شده"
+msgstr ""
+
+#: portfolio/models.py:132 submissions/models.py:8 submissions/models.py:48
+msgid "نام"
+msgstr ""
+
+#: portfolio/models.py:133 submissions/models.py:10 submissions/models.py:27
+#: submissions/models.py:50
+msgid "ایمیل"
+msgstr ""
+
+#: portfolio/models.py:134
+msgid "متن"
+msgstr ""
+
+#: portfolio/models.py:150
+msgid "وضعیت نظر"
+msgstr ""
+
+#: portfolio/models.py:157
+msgid "نظر"
+msgstr ""
+
+#: portfolio/models.py:174
+msgid "رویداد تاریخ"
+msgstr ""
+
+#: portfolio/models.py:175
+msgid "تاریخ رویداد"
+msgstr ""
+
+#: portfolio/models.py:176
+msgid "آدرس تاریخ"
+msgstr ""
+
+#: portfolio/models.py:179
+msgid "تاریخچه"
+msgstr ""
+
+#: portfolio/models.py:180
+msgid "تاریخچه‌ها"
+msgstr ""
+
+#: submissions/admin.py:12 submissions/admin.py:38
+msgid "جستجو بر اساس نام، نام خانوادگی، ایمیل، شماره تلفن"
+msgstr ""
+
+#: submissions/admin.py:20
+msgid "جستجو بر اساس نام شرکت، حوزه فعالیت، ایمیل، شماره تماس"
+msgstr ""
+
+#: submissions/apps.py:8
+msgid "درخواست ها"
+msgstr ""
+
+#: submissions/models.py:9 submissions/models.py:49
+msgid "نام خانوادگی"
+msgstr ""
+
+#: submissions/models.py:11 submissions/models.py:51
+msgid "شماره تلفن"
+msgstr ""
+
+#: submissions/models.py:12
+msgid "پیام"
+msgstr ""
+
+#: submissions/models.py:16
+msgid "تماس"
+msgstr ""
+
+#: submissions/models.py:17
+msgid "تماس‌ها"
+msgstr ""
+
+#: submissions/models.py:25
+msgid "نام شرکت"
+msgstr ""
+
+#: submissions/models.py:26
+msgid "حوزه فعالیت"
+msgstr ""
+
+#: submissions/models.py:28
+msgid "شماره تماس"
+msgstr ""
+
+#: submissions/models.py:29
+msgid "توضیحات"
+msgstr ""
+
+#: submissions/models.py:33
+msgid "سفارش"
+msgstr ""
+
+#: submissions/models.py:34
+msgid "سفارش‌ها"
+msgstr ""
+
+#: submissions/models.py:43
+msgid "در انتظار"
+msgstr ""
+
+#: submissions/models.py:44
+msgid "بررسی شده"
+msgstr ""
+
+#: submissions/models.py:46
+msgid "پذیرفته شده"
+msgstr ""
+
+#: submissions/models.py:52
+msgid "میزان تحصیلات"
+msgstr ""
+
+#: submissions/models.py:53
+msgid "رشته تحصیلی"
+msgstr ""
+
+#: submissions/models.py:55
+msgid "فایل رزومه"
+msgstr ""
+
+#: submissions/models.py:59
+msgid "نامه همراه"
+msgstr ""
+
+#: submissions/models.py:61
+msgid "وضعیت"
+msgstr ""
+
+#: submissions/models.py:69
+msgid "درخواست همکاری"
+msgstr ""
+
+#: submissions/models.py:70
+msgid "درخواست‌های همکاری"
+msgstr ""
+
+#: submissions/validators.py:9
+msgid "فقط فرمت pdf مجاز است"
+msgstr ""

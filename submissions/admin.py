@@ -8,10 +8,8 @@ from .models import ApplyApplication, Contact, Order
 class ContactAdmin(admin.ModelAdmin):
     list_display = ["first_name", "last_name", "email", "phone_number", "created_at"]
     list_per_page = 20
-    search_fields = ["first_name", "lsat_name", "email", "phone_number"]
-    search_help_text = _(
-        "Search for contact via fist name, last name, email, phone number"
-    )
+    search_fields = ["first_name", "last_name", "email", "phone_number"]
+    search_help_text = _("جستجو بر اساس نام، نام خانوادگی، ایمیل، شماره تلفن")
 
 
 @admin.register(Order)
@@ -19,9 +17,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ["company_name", "activity_area", "email", "contact_number"]
     list_per_page = 20
     search_fields = ["company_name", "activity_area", "email", "contact_number"]
-    search_help_text = _(
-        "Search for order via company name, activity area, email, phone number"
-    )
+    search_help_text = _("جستجو بر اساس نام شرکت، حوزه فعالیت، ایمیل، شماره تماس")
 
 
 @admin.register(ApplyApplication)
@@ -38,5 +34,5 @@ class ApplyApplicationAdmin(admin.ModelAdmin):
     list_per_page = 20
     list_filter = ["status"]
     list_editable = ["status"]
-    search_fields = ["first_name, last_name", "email", "phone_number"]
-    search_help_text = _("Search via first name, last name, email, phone number")
+    search_fields = ["first_name", "last_name", "email", "phone_number"]
+    search_help_text = _("جستجو بر اساس نام، نام خانوادگی، ایمیل، شماره تلفن")

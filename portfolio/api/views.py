@@ -75,10 +75,10 @@ class BlogViewSet(
 
     def get_queryset(self):
         if self.action == "list":
-            return Blog.objects.filter(status=Blog.BlogStatus.PUBLISHED)
+            blog = Blog.objects.filter(status=Blog.BlogStatus.PUBLISHED)
         elif self.action == "retrieve":
 
-            return Blog.objects.prefetch_related(
+            blog = Blog.objects.prefetch_related(
                 Prefetch(
                     "comments",
                     queryset=Comment.objects.filter(
@@ -87,6 +87,7 @@ class BlogViewSet(
                     to_attr="all_approved_comments",
                 )
             )
+        return blog
 
 
 @extend_schema(
@@ -104,7 +105,7 @@ class CommentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         parent = self.get_parent()
 
         if parent and parent.blog != blog:
-            raise ValidationError(_("Parent comment does not belong to this blog"))
+            raise ValidationError(_("کامنت والد به این بلاگ تعلق ندارد"))
 
         serializer.save(blog=blog, parent=parent)
 
@@ -119,7 +120,7 @@ class CommentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             try:
                 return Comment.objects.get(pk=parent_pk)
             except Comment.DoesNotExist:
-                raise NotFound(_("Parent comment does not exist."))
+                raise NotFound(_("کامنت وجود ندارد."))
         return None
 
 

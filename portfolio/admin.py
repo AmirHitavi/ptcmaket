@@ -11,7 +11,7 @@ class CategoryAdmin(TranslationAdmin):
     list_display = ["title", "get_projects_count"]
     search_fields = ["title"]
 
-    @admin.display(ordering="projects_count", description=_("Projects"))
+    @admin.display(ordering="projects_count", description=_("پروژه‌ها"))
     def get_projects_count(self, obj):
         return getattr(obj, "projects_count", 0)
 
@@ -32,12 +32,12 @@ class ProjectAdmin(TranslationAdmin):
     list_editable = ["status"]
     list_filter = ["status", "category"]
     search_fields = ["title"]
-    search_help_text = _("Search for project via title")
+    search_help_text = _("جستجو بر اساس عنوان پروژه")
     list_select_related = ["category"]
     list_per_page = 20
     inlines = [GalleryItemInline]
 
-    @admin.display(ordering="category__title", description=_("Category"))
+    @admin.display(ordering="category__title", description=_("دسته‌بندی"))
     def get_category_title(self, obj: Project):
         return obj.category.title if obj.category else "-"
 
@@ -49,7 +49,7 @@ class GalleryItemAdmin(admin.ModelAdmin):
     list_select_related = ["project"]
     list_per_page = 20
 
-    @admin.display(ordering="project__title", description=_("Project"))
+    @admin.display(ordering="project__title", description=_("پروژه"))
     def get_project_title(self, obj: GalleryItem):
         return obj.project.title
 
@@ -75,11 +75,10 @@ class BlogAdmin(TranslationAdmin):
     list_editable = ["status"]
     list_per_page = 20
     search_fields = ["title"]
+    search_help_text = _("جستجو بر اساس عنوان پروژه")
     inlines = [CommentInline]
-    search_fields = ["title"]
-    search_help_text = _("Search for project via title")
 
-    @admin.display(ordering="comments_count", description=_("Comments"))
+    @admin.display(ordering="comments_count", description=_("نظرات"))
     def comments_count(self, obj):
         return getattr(obj, "comments_count", 0)
 
@@ -103,11 +102,11 @@ class CommentAdmin(admin.ModelAdmin):
     list_editable = ["status"]
     list_select_related = ["parent", "blog"]
 
-    @admin.display(ordering="blog__id", description=_("Blog"))
+    @admin.display(ordering="blog__id", description=_("بلاگ"))
     def get_blog_id(self, obj: Comment):
         return obj.blog.id
 
-    @admin.display(ordering="parent__id", description=_("Parent"))
+    @admin.display(ordering="parent__id", description=_("والد"))
     def get_parent_id(self, obj: Comment):
         return obj.parent.id if obj.parent else "-"
 

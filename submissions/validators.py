@@ -6,4 +6,4 @@ def validate_resume(file):
     file_extension = file.name.split(".")[-1]
 
     if file_extension != "pdf":
-        raise ValidationError(_("Only Pdf files are allowed."))
+        raise ValidationError(_("فقط فرمت pdf مجاز است"))
